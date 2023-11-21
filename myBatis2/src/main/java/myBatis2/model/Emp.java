@@ -13,6 +13,8 @@ public class Emp {
 	private int deptno;
 	private String dname;
 	private String loc;
+	//dname, loc는 dept의 필드인데 등가조인해서 추가한것 
+	//dto클래스, table둘다 Date타입인경우는 문제가 되지않음(property와 name값 일치시)
 
 	public String getDname() {
 		return dname;

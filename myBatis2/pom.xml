@@ -21,7 +21,7 @@
 			<version>21.5.0.0</version>
 		</dependency>
 		
-		<!-- Hikari CP -->
+		<!-- Hikari CP(가장많이 쓰는 connection pool) -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
@@ -35,7 +35,7 @@
 			<version>8.0.33</version>
 		</dependency>
 
-		<!-- mybatis -->
+		<!-- mybatis,mybatis-spring 둘다 필요 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
@@ -177,7 +177,7 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- @Inject -->
+		<!-- @Inject:  @autowire 같은역할 -->
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>

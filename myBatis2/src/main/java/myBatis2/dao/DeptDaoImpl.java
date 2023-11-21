@@ -21,6 +21,7 @@ public class DeptDaoImpl implements DeptDao {
 
 	public Dept select(int deptno) {
 		return st.selectOne("deptns.select", deptno);
+		//select가 여러개일때 namespace값으로 구분해서 값을가져옴. 
 	}
 
 	public int update(Dept dept) {

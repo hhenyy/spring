@@ -21,21 +21,24 @@ public class DeptController {
 		List<Dept> list = ds.list();
 		model.addAttribute("list", list);
 		return "deptList";
-	}
-
+	}	
+	
+	//부서 등록폼
 	@RequestMapping("deptInsertForm.do")
 	public String deptInsertForm() {
 		return "deptInsertForm";
 	}
 
+	//부서 등록
 	@RequestMapping("deptInsert.do")
 	public String deptInsert(@ModelAttribute Dept dept, 
 			                 Model model) {
 		Dept dt = ds.select(dept.getDeptno());
-		if (dt == null) {
+		//부서번호 중복 검사
+		if (dt == null) { //중복되지 않는 부서번호
 			int result = ds.insert(dept);
 			model.addAttribute("result", result);
-		} else {
+		} else {   //중복 부서번호
 			model.addAttribute("msg", "이미 있는 데이터입니다");
 			model.addAttribute("result", -1);
 		}

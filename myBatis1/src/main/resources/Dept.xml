@@ -10,7 +10,7 @@
 		<result property="dname"  column="dname" />
 		<result property="loc"	  column="loc" />
 	</resultMap>
-	
+	<!-- resultMap은 쓰지않는 경우는 resultType="dept" -->
 	<select id="list" resultMap="deptResult">
 		select * from dept order by deptno
 	</select>

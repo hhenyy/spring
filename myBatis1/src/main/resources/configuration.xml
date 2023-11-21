@@ -3,13 +3,14 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<properties resource="jdbc.properties" />
-	<typeAliases>
+	<typeAliases> <!-- dto 클래스의 alias설정 
+	type=경로설정 패키지명.클래스명  alias=별칭-->
 		<typeAlias alias="dept" type="myBatis1.model.Dept" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
-			<dataSource type="POOLED">
+			<dataSource type="POOLED"><!-- db접속에 필요한 설정 -->
 				<property name="driver" value="${jdbc.driverClassName}" />
 				<property name="url" value="${jdbc.url}" />
 				<property name="username" value="${jdbc.username}" />
@@ -17,7 +18,7 @@
 			</dataSource>
 		</environment>
 	</environments>
-	<mappers>
+	<mappers><!-- Dept.xml파일을 불러옴,여러개 불러올수있음  -->
 		<mapper resource="Dept.xml" />
 	</mappers>
 </configuration>
