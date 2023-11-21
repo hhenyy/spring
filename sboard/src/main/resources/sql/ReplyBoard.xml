@@ -15,9 +15,7 @@
 	<select id="list" parameterType="int" resultMap="rbResult">
 		select * from replyBoard where bno=#{bno} order by rno
 	</select>
-	<!--  selectKey keyProperty="rno”  검색결과를 rno컬럼에 받음 
-order="BEFORE” :select를먼저하고 그다음 insert/반대순일떄는 after 
-⇒before라서 1증가된 값이 insert됨.-->
+	
 	<insert id="insert" parameterType="rb">
 		<selectKey keyProperty="rno" order="BEFORE" resultType="int">
 			select nvl(max(rno),0) + 1 from replyBoard

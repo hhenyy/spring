@@ -17,7 +17,7 @@
 --><!-- Note:  A "Server" is not itself a "Container", so you may not
      define subcomponents such as "Valves" at this level.
      Documentation at /docs/config/server.html
- --><Server port="8009" shutdown="SHUTDOWN">
+ --><Server port="8005" shutdown="SHUTDOWN">
   <Listener className="org.apache.catalina.startup.VersionLoggerListener"/>
   <!-- Security listener. Documentation at /docs/config/listeners.html
   <Listener className="org.apache.catalina.security.SecurityListener" />
@@ -58,13 +58,13 @@
          Java HTTP Connector: /docs/config/http.html
          Java AJP  Connector: /docs/config/ajp.html
          APR (HTTP/AJP) Connector: /docs/apr.html
-         Define a non-SSL/TLS HTTP/1.1 Connector on port 80
+         Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
     <Connector connectionTimeout="20000" port="80" protocol="HTTP/1.1" redirectPort="8443"/>
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
-               port="80" protocol="HTTP/1.1"
+               port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
                redirectPort="8443" />
     -->
@@ -152,7 +152,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="hheny2" path="/hheny" reloadable="true" source="org.eclipse.jst.jee.server:hheny2"/><Context docBase="boss2" path="/boss2" reloadable="true" source="org.eclipse.jst.jee.server:boss2"/><Context docBase="boss3" path="/boss3" reloadable="true" source="org.eclipse.jst.jee.server:boss3"/></Host>
+      <Context docBase="springmember" path="/springmember" reloadable="true" source="org.eclipse.jst.jee.server:springmember"/><Context docBase="myBatis3" path="/myBatis3" reloadable="true" source="org.eclipse.jst.jee.server:myBatis3"/><Context docBase="board1" path="/board1" reloadable="true" source="org.eclipse.jst.jee.server:board1"/><Context docBase="restapi1" path="/restapi1" reloadable="true" source="org.eclipse.jst.jee.server:restapi1"/><Context docBase="springboard" path="/springboard" reloadable="true" source="org.eclipse.jst.jee.server:springboard"/><Context docBase="restapi2" path="/restapi2" reloadable="true" source="org.eclipse.jst.jee.server:restapi2"/><Context docBase="sboard" path="/sboard" reloadable="true" source="org.eclipse.jst.jee.server:sboard"/><Context docBase="webSock" path="/webSock" reloadable="true" source="org.eclipse.jst.jee.server:webSock"/><Context docBase="myBatis01" path="/myBatis01" reloadable="true" source="org.eclipse.jst.jee.server:myBatis01"/></Host>
     </Engine>
   </Service>
 </Server>

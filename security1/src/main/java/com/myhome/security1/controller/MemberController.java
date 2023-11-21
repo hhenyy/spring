@@ -33,7 +33,6 @@ public class MemberController {
 		
 		if(db == null) {	// 사용 가능한 id
 			String encpassword = passwordEncoder.encode(member.getPasswd());
-			//암호화 시키는 코드 
 			System.out.println("비번 암호화:"+ encpassword);
 			member.setPasswd(encpassword);
 			
