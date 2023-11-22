@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- HikariConfig객체 생성 Connection Pool기능 - HikariCP -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="jdbcUrl"
+			value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="username" value="spring"></property>
+		<property name="password" value="spring123"></property>
+	</bean>
+
+	<!-- dataSource 객체 생성,HikariCP configuration : hikariConfig 주입함 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+	<!--sqlSessionFactory객체 생성, 스프링으로 oracle db 연결 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property><!--db연결코드 -->
+		<property name="configLocation"
+			value="classpath:util/configuration.xml" /><!--configLocation:my batis의 
+			환경설정파일 불러옴 -->
+		<property name="mapperLocations" value="classpath:sql/*.xml" /><!--mapperLocations(여러개라 
+			복수형):mapper파일의 위치 -->
+	</bean>
+
+	<!-- SqlSessionTemplate 객체 생성:spring자체제공 라이브러리가 아니고 mybatis에서 제공하는 라이브러리라 
+		객체를 만들어야함. 있어야 sql문 실행가능 index="0" : 첫번쨰 매개변수 constructor DI 실행 -->
+	<!-- <bean id="session" class="org.mybatis.spring.SqlSessionTemplate"> <constructor-arg 
+		index="0" ref="sqlSessionFactory" /> </bean> -->
+
+	<!-- mapper interface의 package 설정 -->
+	<mybatis-spring:scan base-package="myspring.dao" />
+
+</beans>

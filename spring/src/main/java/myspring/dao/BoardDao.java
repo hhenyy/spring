@@ -10,7 +10,7 @@ import myspring.model.Board;
 
 @Repository
 public class BoardDao {
-
+	
 	@Autowired
 	private SqlSession session;
 
@@ -23,11 +23,11 @@ public class BoardDao {
 	}
 
 	public List<Board> getBoardList(int page) {
-		return session.selectList("list", page);
+		return session.selectList("list",page);
 	}
 
 	public void updatecount(int no) {
-		session.update("hit", no);
+		session.update("hit",no);
 	}
 
 	public Board getBoard(int no) {
@@ -35,17 +35,12 @@ public class BoardDao {
 	}
 
 	public int update(Board board) {
-		return session.update("update", board);
+		return session.update("update",board);
 	}
 
 	public int delete(int no) {
 		return session.delete("delete", no);
 	}
-	
+
+
 }
-
-
-
-
-
-

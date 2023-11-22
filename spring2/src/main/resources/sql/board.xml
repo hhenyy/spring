@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- table이 늘어날수록 mapper파일이 늘어나서 namespace를 다르게함 
+해당 인터페이스이 BoardDao까지의 경로값-->
+<mapper namespace="myspring.dao.BoardDao">
+<!-- 글작성 -->
+<insert id="insert" parameterType="board">
+   insert into myboard values(myboard_seq.nextval,#{writer},
+   #{passwd},#{subject},#{content},0,sysdate) 
+</insert>
+
+<!-- 글갯수 -->
+<select id="getCount" resultType="int">
+  select count(*) from myboard
+</select>
+
+<!--글 목록 -->
+<!-- page로 구하는 방법 -->
+<!-- resultType="board"를 돌려주면 자동으로 list에 저장시켜줌 
+ select문외에는 자체적 결과자료형이 있어서 resultType못씀 -->
+<!-- table명와야할자리에 2번쨰 서브쿼리쓰고 board라는 별칭씀-->
+<!-- xml파일에서 부등호 기호(<)를 인식하지못해서 특수문자로 처리 하거나  
+     1.특수문자로 처리 > : &gt;   < : &lt; el에서 배운듯?-->
+<select id="getBoardList" parameterType="int" resultType="board">
+   <![CDATA[
+   select * from (select rownum rnum, board.* from(
+   select * from myboard order by no desc)board)
+   where rnum >= ((#{page}-1)*10+1) and rnum<=(#{page}*10)
+   ]]>
+  <!--[]안에 값을 넣으면 부등호기호를 인식할수있음 -->
+</select>
+  <!--글목록 map으로 구하는 방법도 있음 -->
+   <!-- parameterType="Map" 나 parameterType="HashMap"-->
+ <!--<select id="list" parameterType="Map" resultType="board">
+  select * from (select rownum rnum, board.* from(
+  select * from mybatisboard order by board_re_ref desc, board_re_seq asc) board)
+  where rnum &gt; = #{start} and rnum &lt; = #{end}
+</select> -->
+
+<!-- 조회수 1 증가 -->
+<update id="updatecount" parameterType="int">
+  update myboard set readcount=readcount+1
+  where no=#{no}
+</update>
+
+<!-- 상세정보 구하기 -->
+<!--selectOne은 object형으로 돌려주지만 자체적으로 board자료형으로 다운캐스팅해서 돌려줌 -->
+<select id="getBoard" parameterType="int" resultType="board">
+  select * from myboard where no=#{no}
+</select>
+
+<!-- 글수정 -->
+<update id="update" parameterType="board">
+ update myboard set writer=#{writer},subject=#{subject},
+ content=#{content}, register=sysdate where no=#{no}
+</update> <!-- no는 hidden으로 넘어온값 -->
+
+<!-- 글삭제 -->
+<delete id="delete" parameterType="int">
+  delete from myboard where no=#{no}
+</delete>
+</mapper>
